@@ -39,7 +39,7 @@ public class CrawlerService {
 		logger.info("Crawled!!");
 	}
 	
-	public void crawl(String url) {
+	public Long crawl(String url) {
 		ProductInfo info = ProductInfoRegex.extract(url);
 		
 		if (info != null) {
@@ -52,10 +52,14 @@ public class CrawlerService {
 					Product product = productService.save(productNameNode.text(), info.getShortUrl(), info.getEcommerce());
 					
 					productHistoryService.save(product, salesPricesNode.text());
+					
+					return product.getId();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		return null;
 	}
 }
