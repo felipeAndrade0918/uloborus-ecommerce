@@ -30,4 +30,9 @@ public class ProductHistoryService {
 			productHistoryRepository.save(history);
 		}
 	}
+	
+	@Transactional(readOnly = true)
+	public ProductHistory findOneByProductIdAndHistoryId(Long productId, Long historyId) {
+		return productHistoryRepository.findOneByProductIdAndHistoryId(productId, historyId);
+	}
 }

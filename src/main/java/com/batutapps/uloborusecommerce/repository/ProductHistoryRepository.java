@@ -14,4 +14,9 @@ public interface ProductHistoryRepository extends JpaRepository<ProductHistory, 
 	@Query(value = "SELECT h FROM ProductHistory h WHERE h.product = :product AND h.referenceDate = :referenceDate")
 	ProductHistory findOneByProductAndReferenceDate(@Param("product") Product product, 
 												 	@Param("referenceDate") LocalDateTime referenceDate);
+	@Query(value = "SELECT h FROM ProductHistory h "
+				+ " WHERE h.product.id = :productId "
+				+ " AND h.id = :id")
+	ProductHistory findOneByProductIdAndHistoryId(@Param("productId") Long productId,
+												  @Param("id") Long id);
 }
