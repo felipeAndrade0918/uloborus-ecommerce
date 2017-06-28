@@ -1,5 +1,6 @@
 package com.batutapps.uloborusecommerce.domain;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,6 +29,14 @@ public class Product extends AbstractEntity {
 	@JsonView(value = {ProductWithHistoryView.class})
 	@OneToMany(mappedBy = "product")
 	private List<ProductHistory> history;
+
+	public Product() {
+		super();
+	}
+	
+	public Product(Long id) {
+		super(id);
+	}
 
 	public String getName() {
 		return name;
@@ -59,6 +68,16 @@ public class Product extends AbstractEntity {
 
 	public void setHistory(List<ProductHistory> history) {
 		this.history = history;
+	}
+	
+	public String getLatestPrice() {
+		ProductHistory productHistory = history.stream().max(Comparator.comparing(ProductHistory::getId)).orElse(null);
+		
+		if (productHistory != null) {
+			return productHistory.getPrice();
+		}
+		
+		return null;
 	}
 	
 }
