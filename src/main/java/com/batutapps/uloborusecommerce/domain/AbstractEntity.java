@@ -27,6 +27,15 @@ public abstract class AbstractEntity {
 	@CreatedDate
 	private LocalDateTime createdDate;
 
+	public AbstractEntity() {
+		super();
+	}
+
+	public AbstractEntity(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}
