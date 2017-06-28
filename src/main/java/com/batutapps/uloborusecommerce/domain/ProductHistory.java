@@ -6,13 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.batutapps.uloborusecommerce.util.jsonview.ProductWithHistoryView;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class ProductHistory extends AbstractEntity {
 
+	@JsonView(value = {ProductWithHistoryView.class})
 	private String price;
 
+	@JsonView(value = {ProductWithHistoryView.class})
 	private LocalDateTime referenceDate;
 	
 	@JsonIgnore

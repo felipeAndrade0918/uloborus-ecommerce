@@ -8,17 +8,24 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 
 import com.batutapps.uloborusecommerce.enums.Ecommerce;
+import com.batutapps.uloborusecommerce.util.jsonview.ProductView;
+import com.batutapps.uloborusecommerce.util.jsonview.ProductWithHistoryView;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Product extends AbstractEntity {
 
+	@JsonView(value = {ProductView.class, ProductWithHistoryView.class})
 	private String name;
 	
+	@JsonView(value = {ProductView.class, ProductWithHistoryView.class})
 	private String url;
 	
+	@JsonView(value = {ProductView.class, ProductWithHistoryView.class})
 	@Enumerated(EnumType.STRING)
 	private Ecommerce ecommerce;
 	
+	@JsonView(value = {ProductWithHistoryView.class})
 	@OneToMany(mappedBy = "product")
 	private List<ProductHistory> history;
 

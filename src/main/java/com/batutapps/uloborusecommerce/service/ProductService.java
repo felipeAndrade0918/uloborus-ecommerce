@@ -40,6 +40,11 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
+	public Product findOne(Long productId) {
+		return productRepository.findOne(productId);
+	}
+	
+	@Transactional(readOnly = true)
 	public Product findOneJoinHistory(Long productId) {
 		return productRepository.findOneJoinHistory(productId);
 	}

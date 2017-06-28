@@ -11,10 +11,15 @@ import javax.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.batutapps.uloborusecommerce.util.jsonview.ProductView;
+import com.batutapps.uloborusecommerce.util.jsonview.ProductWithHistoryView;
+import com.fasterxml.jackson.annotation.JsonView;
+
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractEntity {
 
+	@JsonView(value = {ProductView.class, ProductWithHistoryView.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.batutapps.uloborusecommerce.domain.Product;
 import com.batutapps.uloborusecommerce.service.CrawlerService;
 import com.batutapps.uloborusecommerce.service.ProductService;
+import com.batutapps.uloborusecommerce.util.jsonview.ProductView;
+import com.batutapps.uloborusecommerce.util.jsonview.ProductWithHistoryView;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 public class CrawlerController {
@@ -48,8 +51,15 @@ private CrawlerService crawlService;
 		return productService.findAll();
 	}
 	
+	@JsonView(value = {ProductView.class})
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
 	public Product getProduct(@PathVariable Long productId) {
+		return productService.findOneJoinHistory(productId);
+	}
+	
+	@JsonView(value = {ProductWithHistoryView.class})
+	@RequestMapping(value = "/product/{productId}/history", method = RequestMethod.GET)
+	public Product getProductWithHistory(@PathVariable Long productId) {
 		return productService.findOneJoinHistory(productId);
 	}
 }
