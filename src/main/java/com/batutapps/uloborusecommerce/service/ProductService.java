@@ -38,4 +38,9 @@ public class ProductService {
 	public List<Product> findAll() {
 		return productRepository.findAll();
 	}
+	
+	@Transactional(readOnly = true)
+	public Product findOneJoinHistory(Long productId) {
+		return productRepository.findOneJoinHistory(productId);
+	}
 }

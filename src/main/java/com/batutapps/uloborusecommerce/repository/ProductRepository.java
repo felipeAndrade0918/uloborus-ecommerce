@@ -10,4 +10,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	@Query(value = "SELECT p FROM Product p WHERE p.url = :url")
 	Product findByUrl(@Param(value = "url") String url);
+	
+	@Query(value = "SELECT p FROM Product p "
+				+ " LEFT JOIN FETCH p.history "
+				+  "WHERE p.id = :id")
+	Product findOneJoinHistory(@Param(value = "id") Long id);
 }
