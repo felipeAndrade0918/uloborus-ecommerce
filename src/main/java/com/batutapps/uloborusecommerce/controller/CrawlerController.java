@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.batutapps.uloborusecommerce.domain.Product;
 import com.batutapps.uloborusecommerce.domain.ProductHistory;
-import com.batutapps.uloborusecommerce.service.CrawlerService;
+import com.batutapps.uloborusecommerce.service.ProductCrawler;
 import com.batutapps.uloborusecommerce.service.ProductHistoryService;
 import com.batutapps.uloborusecommerce.service.ProductService;
 import com.batutapps.uloborusecommerce.util.jsonview.ProductView;
@@ -27,14 +27,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 @RestController
 public class CrawlerController {
 
-	private CrawlerService crawlService;
+	private ProductCrawler crawlService;
 	
 	private ProductService productService;
 	
 	private ProductHistoryService historyService;
 	
 	@Autowired
-	public CrawlerController(CrawlerService crawlService, ProductService productService,
+	public CrawlerController(ProductCrawler crawlService, ProductService productService,
 			ProductHistoryService historyService) {
 		super();
 		this.crawlService = crawlService;
@@ -45,10 +45,10 @@ public class CrawlerController {
 	@Transactional
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ResponseEntity<?> addProduct(@RequestParam(name = "url") String url) throws URISyntaxException {
-		Long productId = crawlService.crawl(url);
+		Product product = crawlService.crawl(url);
 		
-		if (productId != null) {
-			return ResponseEntity.created(new URI("/product/" + productId)).build();
+		if (product != null) {
+			return ResponseEntity.created(new URI("/product/" + product.getId())).build();
 		} else {
 			return ResponseEntity.noContent().build();
 		}
