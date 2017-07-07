@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.batutapps.uloborusecommerce.adapter.ProductAdapter;
 import com.batutapps.uloborusecommerce.domain.Product;
-import com.batutapps.uloborusecommerce.enums.Ecommerce;
+import com.batutapps.uloborusecommerce.dto.ProductInfo;
 import com.batutapps.uloborusecommerce.repository.ProductRepository;
 
 @Service
@@ -25,11 +25,11 @@ public class ProductService {
 	}
 
 	@Transactional
-	public Product save(String productName, String url, Ecommerce ecommerce) {
-		Product existingProduct = productRepository.findByUrl(url);
+	public Product save(ProductInfo productInfo) {
+		Product existingProduct = productRepository.findByUrl(productInfo.getShortUrl());
 		
 		if (existingProduct == null) {
-			existingProduct = ProductAdapter.adapt(productName, url, ecommerce);
+			existingProduct = ProductAdapter.adapt(productInfo);
 			productRepository.save(existingProduct);
 		}
 		
