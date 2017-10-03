@@ -53,7 +53,7 @@ public class DefaultB2wCrawler implements Crawler {
 		try {
 			Document document = Jsoup.connect(String.format("%s/oferta-do-dia", ecommerce.getUrl())).get();
 			
-			Elements products = document.select(".spacey-lista .product-grid .grid-item");
+			Elements products = document.select(".publishes .product-grid .grid-item");
 			
 			for (Element product : products) {
 				String productUrl = product.select(".card-product-url").attr("href");
