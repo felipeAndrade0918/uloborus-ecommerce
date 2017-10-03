@@ -7,6 +7,10 @@ public class DailyDealProductRegex {
 
 	private static String PATTERN = "(\\/produto\\/[\\w]*)";
 	
+	private DailyDealProductRegex() {
+		
+	}
+	
 	public static String extract(String url) {
 		String validUrl = null;
 		

@@ -9,6 +9,10 @@ public class EcommerceRegex {
 
 	private static String PATTERN = "(?:http|https):\\/\\/www.([\\w]*).com.br";
 	
+	private EcommerceRegex() {
+		
+	}
+	
 	public static Ecommerce extract(String url) {
 		Ecommerce ecommerce = null;
 		

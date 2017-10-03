@@ -22,7 +22,7 @@ public class DailyDealCrawlerScheduler {
 		this.crawlerService = crawlerService;
 	}
 
-	@Scheduled(cron = "0 0 9 * * ?")
+	@Scheduled(cron = "0 0/1 * * * ?")
 	public void schedule() {
 		logger.info("Get ready to scan the daily deals!");
 		

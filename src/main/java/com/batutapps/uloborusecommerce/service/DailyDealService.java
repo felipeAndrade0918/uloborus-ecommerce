@@ -1,5 +1,6 @@
 package com.batutapps.uloborusecommerce.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class DailyDealService {
 	}
 
 	@Transactional
-	public DailyDeal save(String price, Long productId) {
+	public DailyDeal save(BigDecimal price, Long productId) {
 		LocalDateTime referenceDate = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
 		
 		DailyDeal existingDeal = dailyDealRepository.findOneByProductIdAndReferenceDate(productId, referenceDate);

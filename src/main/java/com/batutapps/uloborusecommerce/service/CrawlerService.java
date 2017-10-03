@@ -44,11 +44,13 @@ public class CrawlerService {
 			if (crawler != null) {
 				ProductInfo productInfo = crawler.crawl(url);
 				
-				Product product = productService.save(productInfo);
-				
-				historyService.save(product, productInfo.getPrice());
-				
-				return productService.findOneJoinHistory(product.getId());
+				if (!productInfo.getPrice().isEmpty()) {
+					Product product = productService.save(productInfo);
+					
+					historyService.save(product, productInfo.getPrice());
+					
+					return productService.findOneJoinHistory(product.getId());
+				}
 			}
 		}
 		

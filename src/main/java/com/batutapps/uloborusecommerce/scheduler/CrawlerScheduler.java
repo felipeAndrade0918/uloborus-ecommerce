@@ -28,7 +28,7 @@ public class CrawlerScheduler {
 		this.productService = productService;
 	}
 
-	@Scheduled(cron = "0 0 9 * * ?")
+	@Scheduled(cron = "0 0/1 * * * ?")
 	public void schedule() {
 		logger.info("Listing products...");
 		

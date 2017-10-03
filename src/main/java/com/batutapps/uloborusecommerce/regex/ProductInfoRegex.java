@@ -10,6 +10,10 @@ public class ProductInfoRegex {
 
 	private static String PATTERN = "((?:http|https):\\/\\/www.([\\w]*).com.br\\/produto\\/[\\w]*)";
 	
+	private ProductInfoRegex() {
+		
+	}
+	
 	public static ProductInfo extract(String url) {
 		ProductInfo info = null;
 		

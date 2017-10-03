@@ -1,5 +1,6 @@
 package com.batutapps.uloborusecommerce.domain;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class Product extends AbstractEntity {
 		this.history = history;
 	}
 	
-	public String getLatestPrice() {
+	public BigDecimal getLatestPrice() {
 		ProductHistory productHistory = history.stream().max(Comparator.comparing(ProductHistory::getId)).orElse(null);
 		
 		if (productHistory != null) {

@@ -1,5 +1,6 @@
 package com.batutapps.uloborusecommerce.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class ProductHistory extends AbstractEntity {
 
 	@JsonView(value = {ProductWithHistoryView.class})
-	private String price;
+	private BigDecimal price;
 
 	@JsonView(value = {ProductWithHistoryView.class})
 	private LocalDateTime referenceDate;
@@ -24,11 +25,11 @@ public class ProductHistory extends AbstractEntity {
 	@JoinColumn(name = "product_id")
 	private Product product;
 
-	public String getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
