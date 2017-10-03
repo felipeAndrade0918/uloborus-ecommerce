@@ -9,21 +9,27 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.stereotype.Component;
 
 import com.batutapps.uloborusecommerce.crawler.Crawler;
+import com.batutapps.uloborusecommerce.crawler.factory.CrawlerFactory;
 import com.batutapps.uloborusecommerce.dto.ProductInfo;
 import com.batutapps.uloborusecommerce.enums.Ecommerce;
 import com.batutapps.uloborusecommerce.regex.DailyDealProductRegex;
 import com.batutapps.uloborusecommerce.regex.ProductInfoRegex;
 
-@Component
 public class DefaultB2wCrawler implements Crawler {
 
 	private Logger logger = Logger.getLogger(getClass());
 	
+	private Ecommerce ecommerce;
+	
+	public DefaultB2wCrawler(Ecommerce ecommerce) {
+		super();
+		this.ecommerce = ecommerce;
+	}
+
 	@Override
-	public ProductInfo crawl(String url) {
+	public ProductInfo getProduct(String url) {
 		ProductInfo info = ProductInfoRegex.extract(url);
 		
 		if (info != null) {
@@ -47,7 +53,7 @@ public class DefaultB2wCrawler implements Crawler {
 	}
 
 	@Override
-	public List<String> dailyDealCrawl(Ecommerce ecommerce) {
+	public List<String> getDailyDeals() {
 		List<String> infos = new ArrayList<>();
 		
 		try {
@@ -72,4 +78,5 @@ public class DefaultB2wCrawler implements Crawler {
 		
 		return infos;
 	}
+	
 }

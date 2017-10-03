@@ -11,7 +11,7 @@ public class CrawlerFactory extends AbstractCrawlerFactory {
 		switch(ecommerce) {
 			case AMERICANAS:
 			case SUBMARINO:
-				return new DefaultB2wCrawler();
+				return new DefaultB2wCrawler(ecommerce);
 			default:
 				return null;
 		}

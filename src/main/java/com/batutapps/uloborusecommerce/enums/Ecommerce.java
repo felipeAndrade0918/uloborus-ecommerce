@@ -2,8 +2,8 @@ package com.batutapps.uloborusecommerce.enums;
 
 public enum Ecommerce {
 
-	AMERICANAS("https://www.submarino.com.br"),
-	SUBMARINO("http://www.americanas.com.br");
+	AMERICANAS("http://www.americanas.com.br"),
+	SUBMARINO("https://www.submarino.com.br");
 	
 	private String url;
 	
