@@ -3,7 +3,10 @@ package com.batutapps.uloborusecommerce.crawler.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,14 +41,14 @@ public class DefaultB2wCrawler implements Crawler {
 				Elements productNameNode = document.select("h1.product-name");
 				Elements salesPricesNode = document.select(".sales-price");
 				
-				if (productNameNode != null && salesPricesNode != null) {
+				if (StringUtils.isNotBlank(productNameNode.text()) && StringUtils.isNotBlank(salesPricesNode.text())) {
 					info.setName(productNameNode.text());
 					info.setPrice(salesPricesNode.text());
 					
 					return info;
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(String.format("Error while getting the product %s", url), e);
 			}
 		}
 		
@@ -53,8 +56,8 @@ public class DefaultB2wCrawler implements Crawler {
 	}
 
 	@Override
-	public List<String> getDailyDeals() {
-		List<String> infos = new ArrayList<>();
+	public List<ProductInfo> getDailyDeals() {
+		List<ProductInfo> productsInfos = new ArrayList<>();
 		
 		try {
 			Document document = Jsoup.connect(String.format("%s/oferta-do-dia", ecommerce.getUrl())).get();
@@ -68,7 +71,7 @@ public class DefaultB2wCrawler implements Crawler {
 					String validUrl = DailyDealProductRegex.extract(productUrl);
 					
 					if (validUrl != null) {
-						infos.add(ecommerce.getUrl() + validUrl);
+						productsInfos.add(getProduct(ecommerce.getUrl() + validUrl));
 					}
 				}
 			}
@@ -76,7 +79,7 @@ public class DefaultB2wCrawler implements Crawler {
 			logger.error("Error while getting the daily deals", e);
 		}
 		
-		return infos;
+		return productsInfos.stream().filter(p -> p != null).collect(Collectors.toList());
 	}
 	
 }

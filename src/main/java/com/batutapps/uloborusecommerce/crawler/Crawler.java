@@ -8,5 +8,5 @@ public interface Crawler {
 
 	ProductInfo getProduct(String url);
 	
-	List<String> getDailyDeals();
+	List<ProductInfo> getDailyDeals();
 }
