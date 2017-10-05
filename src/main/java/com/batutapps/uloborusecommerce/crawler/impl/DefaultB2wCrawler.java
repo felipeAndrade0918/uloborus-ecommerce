@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,7 +13,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.batutapps.uloborusecommerce.crawler.Crawler;
-import com.batutapps.uloborusecommerce.crawler.factory.CrawlerFactory;
 import com.batutapps.uloborusecommerce.dto.ProductInfo;
 import com.batutapps.uloborusecommerce.enums.Ecommerce;
 import com.batutapps.uloborusecommerce.regex.DailyDealProductRegex;
