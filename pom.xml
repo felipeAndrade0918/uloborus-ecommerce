@@ -5,7 +5,7 @@
 
 	<groupId>com.batutapps</groupId>
 	<artifactId>uloborus-ecommerce</artifactId>
-	<version>0.0.1-DEV-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>uloborus-ecommerce</name>
