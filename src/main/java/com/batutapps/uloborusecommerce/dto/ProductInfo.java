@@ -1,5 +1,7 @@
 package com.batutapps.uloborusecommerce.dto;
 
+import java.math.BigDecimal;
+
 import com.batutapps.uloborusecommerce.enums.Ecommerce;
 
 public class ProductInfo {
@@ -10,18 +12,21 @@ public class ProductInfo {
 	
 	private Ecommerce ecommerce;
 	
-	private String price;
+	private BigDecimal price;
+	
+	private String code;
 
 	public ProductInfo() {
 		super();
 	}
 
-	public ProductInfo(String name, String shortUrl, Ecommerce ecommerce, String price) {
+	public ProductInfo(String name, String shortUrl, Ecommerce ecommerce, BigDecimal price, String code) {
 		super();
 		this.name = name;
 		this.shortUrl = shortUrl;
 		this.ecommerce = ecommerce;
 		this.price = price;
+		this.code = code;
 	}
 
 	public String getName() {
@@ -48,19 +53,27 @@ public class ProductInfo {
 		this.ecommerce = ecommerce;
 	}
 
-	public String getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((code == null) ? 0 : code.hashCode());
 		result = prime * result + ((ecommerce == null) ? 0 : ecommerce.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
@@ -77,6 +90,11 @@ public class ProductInfo {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductInfo other = (ProductInfo) obj;
+		if (code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!code.equals(other.code))
+			return false;
 		if (ecommerce != other.ecommerce)
 			return false;
 		if (name == null) {
@@ -100,7 +118,7 @@ public class ProductInfo {
 	@Override
 	public String toString() {
 		return "ProductInfo [name=" + name + ", shortUrl=" + shortUrl + ", ecommerce=" + ecommerce + ", price=" + price
-				+ "]";
+				+ ", code=" + code + "]";
 	}
 	
 }

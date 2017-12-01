@@ -8,7 +8,7 @@ import com.batutapps.uloborusecommerce.enums.Ecommerce;
 
 public class ProductInfoRegex {
 
-	private static String PATTERN = "((?:http|https):\\/\\/www.([\\w]*).com.br\\/produto\\/[\\w]*)";
+	private static String PATTERN = "((?:http|https):\\/\\/www.([\\w]*).com.br\\/produto\\/([\\w]*))";
 	
 	private ProductInfoRegex() {
 		
@@ -25,6 +25,7 @@ public class ProductInfoRegex {
 			info = new ProductInfo();
 			info.setShortUrl(matcher.group(1));
 			info.setEcommerce(Ecommerce.valueOf(matcher.group(2).toUpperCase()));
+			info.setCode(matcher.group(3));
 		}
 		
 		return info;

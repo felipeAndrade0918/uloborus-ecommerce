@@ -16,6 +16,7 @@ import com.batutapps.uloborusecommerce.crawler.Crawler;
 import com.batutapps.uloborusecommerce.dto.ProductInfo;
 import com.batutapps.uloborusecommerce.enums.Ecommerce;
 import com.batutapps.uloborusecommerce.regex.DailyDealProductRegex;
+import com.batutapps.uloborusecommerce.regex.PriceRegex;
 import com.batutapps.uloborusecommerce.regex.ProductInfoRegex;
 
 public class DefaultB2wCrawler implements Crawler {
@@ -37,11 +38,11 @@ public class DefaultB2wCrawler implements Crawler {
 			try {
 				Document document = Jsoup.connect(info.getShortUrl()).get();
 				Elements productNameNode = document.select("h1.product-name");
-				Elements salesPricesNode = document.select(".sales-price");
+				Elements salesPricesNode = document.select("p.sales-price");
 				
 				if (StringUtils.isNotBlank(productNameNode.text()) && StringUtils.isNotBlank(salesPricesNode.text())) {
 					info.setName(productNameNode.text());
-					info.setPrice(salesPricesNode.text());
+					info.setPrice(PriceRegex.extract(salesPricesNode.text()));
 					
 					return info;
 				}
