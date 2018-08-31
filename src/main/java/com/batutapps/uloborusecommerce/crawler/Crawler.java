@@ -6,7 +6,7 @@ import com.batutapps.uloborusecommerce.dto.ProductInfo;
 
 public interface Crawler {
 
-	ProductInfo getProduct(String url);
+	ProductInfo getProduct(String url) throws Exception;
 	
-	List<ProductInfo> getDailyDeals();
+	List<ProductInfo> getDailyDeals() throws Exception;
 }

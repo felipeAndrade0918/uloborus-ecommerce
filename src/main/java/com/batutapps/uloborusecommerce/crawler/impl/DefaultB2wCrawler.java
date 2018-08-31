@@ -1,6 +1,5 @@
 package com.batutapps.uloborusecommerce.crawler.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ import com.batutapps.uloborusecommerce.regex.ProductInfoRegex;
 
 public class DefaultB2wCrawler implements Crawler {
 
-	private Logger logger = Logger.getLogger(getClass());
+	private Logger logger = Logger.getLogger(DefaultB2wCrawler.class);
 	
 	private Ecommerce ecommerce;
 	
@@ -31,12 +30,14 @@ public class DefaultB2wCrawler implements Crawler {
 	}
 
 	@Override
-	public ProductInfo getProduct(String url) {
+	public ProductInfo getProduct(String url) throws Exception {
 		ProductInfo info = ProductInfoRegex.extract(url);
 		
 		if (info != null) {
 			try {
-				Document document = Jsoup.connect(info.getShortUrl()).get();
+				Document document = Jsoup.connect(info.getShortUrl())
+										 .timeout(0)
+										 .get();
 				Elements productNameNode = document.select("h1.product-name");
 				Elements salesPricesNode = document.select("p.sales-price");
 				
@@ -46,20 +47,23 @@ public class DefaultB2wCrawler implements Crawler {
 					
 					return info;
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
 				logger.error(String.format("Error while getting the product %s", url), e);
+				throw e;
 			}
 		}
 		
 		return null;
 	}
-
+	
 	@Override
-	public List<ProductInfo> getDailyDeals() {
+	public List<ProductInfo> getDailyDeals() throws Exception {
 		List<ProductInfo> productsInfos = new ArrayList<>();
 		
 		try {
-			Document document = Jsoup.connect(String.format("%s/oferta-do-dia", ecommerce.getUrl())).get();
+			Document document = Jsoup.connect(String.format("%s/oferta-do-dia", ecommerce.getUrl()))
+									 .timeout(0)
+									 .get();
 			
 			Elements products = document.select(".publishes .product-grid .grid-item");
 			
@@ -74,8 +78,9 @@ public class DefaultB2wCrawler implements Crawler {
 					}
 				}
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error("Error while getting the daily deals", e);
+			throw e;
 		}
 		
 		return productsInfos.stream().filter(p -> p != null).collect(Collectors.toList());
