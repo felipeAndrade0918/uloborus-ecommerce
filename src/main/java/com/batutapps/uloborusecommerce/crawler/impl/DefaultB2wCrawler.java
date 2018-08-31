@@ -2,6 +2,7 @@ package com.batutapps.uloborusecommerce.crawler.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -83,7 +84,7 @@ public class DefaultB2wCrawler implements Crawler {
 			throw e;
 		}
 		
-		return productsInfos.stream().filter(p -> p != null).collect(Collectors.toList());
+		return productsInfos.stream().filter(Objects::nonNull).collect(Collectors.toList());
 	}
 	
 }
